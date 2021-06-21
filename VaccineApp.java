@@ -64,7 +64,6 @@ public class VaccineApp {
                         System.out.println("Please enter your city:");
                         String city = scanner.nextLine();
                         
-                        //String insert = "UPDATE Person SET Person.name = " + "\'" + fullName + "\'" + " WHERE Person.hinsurnum = " + "\'" + hinsurnum + "\'" ;
                         String insert = "UPDATE Person SET name = " + "\'" + fullName + "\'"+ ",postal_code = " + "\'" + postalCode + "\'" + ",street_address = " + "\'" + streetAddr + "\'" + ",date_of_birth = " + "\'" + birthdate + "\'" + ",phone_number = " + "\'" + phoneNumber + "\'" + ",city = " + "\'" + city + "\'" + ", gender = " + "\'" + gender + "\'" + ", category = " + "\'" +category + "\'" + " WHERE hinsurnum = " + "\'" + hinsurnum + "\'";
                         statement.executeUpdate(insert);
                         System.out.println("Information successfully updated!");
@@ -121,7 +120,6 @@ public class VaccineApp {
                 String slotTime = scanner.nextLine();
 
                 PreparedStatement query4 = con.prepareStatement("SELECT hinsurnum FROM Person WHERE hinsurnum = ?");
-                // PreparedStatement query = con.prepareStatement("SELECT * FROM Slot WHERE vaccine_date > ? AND hinsurnum IS NULL AND location_name IN (SELECT DISTINCT Location.location_name FROM Location,Slot WHERE Location.location_name = Slot.location_name AND Location.city = ?) LIMIT 1");
                 query4.setString(1, hinsurnum);
                 ResultSet rs4 = query4.executeQuery();
 
@@ -200,15 +198,6 @@ public class VaccineApp {
                     }
                 }
 
-                // PreparedStatement checkCity = con.prepareStatement("SELECT DISTINCT Location.location_name FROM Location,Slot WHERE Location.location_name = Slot.location_name AND Location.city = ?");
-                // checkCity.setString(1, city);
-                // ResultSet rs1 = checkCity.executeQuery();
-
-                // while (rs1.next()){
-                //     String validLocation = rs1.getString("location_name");
-                //     validLocations.add(validLocation);
-                // }
-                //AND location_name IN (SELECT DISTINCT Location.location_name FROM Location,Slot WHERE Location.location_name = Slot.location_name AND Location.city = ?"
                 if (!flag){
                     PreparedStatement query = con.prepareStatement("SELECT hinsurnum FROM Slot WHERE vaccine_date = ? AND slot_code = ? AND location_name = ? AND vaccine_time = ?");
                     // PreparedStatement query = con.prepareStatement("SELECT * FROM Slot WHERE vaccine_date > ? AND hinsurnum IS NULL AND location_name IN (SELECT DISTINCT Location.location_name FROM Location,Slot WHERE Location.location_name = Slot.location_name AND Location.city = ?) LIMIT 1");
@@ -217,21 +206,6 @@ public class VaccineApp {
                     query.setString(3, locationName);
                     query.setString(4, slotTime);
                     ResultSet rs1 = query.executeQuery();
-
-                //     if (rs1.next()){
-                //         System.out.println("This slot is already occupied. Please try assigning a different slot.");
-                //         continue;
-                //     } else {
-                //         PreparedStatement query2 = con.prepareStatement("UPDATE Slot SET hinsurnum = ? WHERE vaccine_date = ? AND slot_code = ? AND location_name = ? AND vaccine_time = ?");
-                // // PreparedStatement query = con.prepareStatement("SELECT * FROM Slot WHERE vaccine_date > ? AND hinsurnum IS NULL AND location_name IN (SELECT DISTINCT Location.location_name FROM Location,Slot WHERE Location.location_name = Slot.location_name AND Location.city = ?) LIMIT 1");
-                //         query2.setString(1, hinsurnum);
-                //         query2.setString(2, slotDate);
-                //         query2.setString(3, slotCode);
-                //         query2.setString(4, locationName);
-                //         query2.setString(5, slotTime);
-                //         ResultSet rs8 = query2.executeQuery();
-                //         System.out.println("Slot successfully assigned!");
-                //     }
 
                     while (rs1.next()){
                         existenceFlag = true;
@@ -245,28 +219,8 @@ public class VaccineApp {
                             System.out.println("Successfully assigned Slot to Person!");
                         }
                     }
-
-                    
-                    // while (rs1.next()){
-                    //     availFlag = true;
-                    //     slot_code = rs1.getString("slot_code");
-                    //     System.out.println(city);
-                    // }
-
-                    // if (!availFlag){
-                    //     System.out.println("There is no available slot for this person.");
-                    //     continue;
-                    // }
                     
                 }
-
-
-
-                //PreparedStatement findCity = con.prepareStatement("SELECT location_name FROM Person WHERE Person.hinsurnum = ?");
-                //String insert = "UPDATE Slot SET hinsurnum = " + "\'" + hinsurnum + "\'" + " WHERE hinsurnum IS NULL AND vaccine_date > " + "\'" + currentDate + "\'" + " AND"
-                //PreparedStatement checkHinsurnum = con.prepareStatement("SELECT city FROM Person WHERE Person.hinsurnum = ?");
-
-
 
             } else if (decision == 3){
                 String man = "";
@@ -291,7 +245,6 @@ public class VaccineApp {
                 String manufacturer = scanner.nextLine();
 
                 PreparedStatement query4 = con.prepareStatement("SELECT hinsurnum FROM Person WHERE hinsurnum = ?");
-                // PreparedStatement query = con.prepareStatement("SELECT * FROM Slot WHERE vaccine_date > ? AND hinsurnum IS NULL AND location_name IN (SELECT DISTINCT Location.location_name FROM Location,Slot WHERE Location.location_name = Slot.location_name AND Location.city = ?) LIMIT 1");
                 query4.setString(1, hinsurnum);
                 ResultSet rs4 = query4.executeQuery();
 
@@ -301,7 +254,6 @@ public class VaccineApp {
                 }
 
                 PreparedStatement query3 = con.prepareStatement("SELECT hinsurnum FROM Slot WHERE vaccine_date = ? AND slot_code = ? AND location_name = ? AND vaccine_time = ?");
-                // PreparedStatement query = con.prepareStatement("SELECT * FROM Slot WHERE vaccine_date > ? AND hinsurnum IS NULL AND location_name IN (SELECT DISTINCT Location.location_name FROM Location,Slot WHERE Location.location_name = Slot.location_name AND Location.city = ?) LIMIT 1");
                 query3.setString(1, vaccinationDate);
                 query3.setString(2, slotCode);
                 query3.setString(3, locationName);
